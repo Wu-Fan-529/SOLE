@@ -30,6 +30,14 @@ z_index = 1
 tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAMAAAAGAAMAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAgAGAAAAAAACAAMAAAAFAAAAAAADAAQAAAAGAAMAABA=")
 tile_set = ExtResource("3_hfjvg")
 
+[node name="MedicalPod" type="Node2D" parent="HospitalTileMap" groups=["medical_pod"]]
+script = ExtResource("5_hfjvg")
+
+[node name="Medical Pod" type="TileMapLayer" parent="HospitalTileMap/MedicalPod"]
+z_index = 1
+tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAMAAAAGAAMAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAAAGAAAAAAACAAMAAAAFAAAAAAADAAQAAAAGAAMAABA=")
+tile_set = ExtResource("3_hfjvg")
+
 [node name="Player" parent="." instance=ExtResource("1_6v8gn")]
 position = Vector2(73, 47)
 collision_mask = 3
@@ -38,9 +46,6 @@ collision_mask = 3
 z_index = 1
 position = Vector2(106, -10)
 collision_mask = 6
-
-[node name="MedicalPod" type="Node2D" parent="." groups=["medical_pod"]]
-script = ExtResource("5_hfjvg")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
