@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dnfk50hho83rt"]
+[gd_scene load_steps=11 format=4 uid="uid://dnfk50hho83rt"]
 
 [ext_resource type="PackedScene" uid="uid://o51uvaml2v1r" path="res://characters/player.tscn" id="1_6v8gn"]
 [ext_resource type="PackedScene" uid="uid://cehayw7nuyd25" path="res://characters/pyx.tscn" id="3_6yvtn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cot6xcoq5lif4" path="res://scripts/texture_progress_bar.gd" id="5_0o416"]
 [ext_resource type="Script" uid="uid://jqkjlvtf2chl" path="res://scripts/verification_sys/verification_manager.gd" id="5_hfjvg"]
 [ext_resource type="Script" uid="uid://cmdk88mpognuk" path="res://scripts/cam_manager.gd" id="6_3bvpf"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_3bvpf"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_hxulc"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_i2632"]
 
@@ -25,6 +26,7 @@ tile_map_data = PackedByteArray("AAAAAP3/AAAAAAAAAAAAAP7/AAAAAAEAAAAAAP//AAAAAAI
 tile_set = ExtResource("3_hfjvg")
 
 [node name="Layout" type="TileMapLayer" parent="HospitalTileMap"]
+z_index = 1
 tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAMAAAAGAAMAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAgAGAAAAAAACAAMAAAAFAAAAAAADAAQAAAAGAAMAABA=")
 tile_set = ExtResource("3_hfjvg")
 
@@ -33,6 +35,7 @@ position = Vector2(73, 47)
 collision_mask = 3
 
 [node name="Pyx" parent="." instance=ExtResource("3_6yvtn")]
+z_index = 1
 position = Vector2(106, -10)
 collision_mask = 6
 
@@ -52,12 +55,24 @@ script = ExtResource("5_0o416")
 script = ExtResource("6_3bvpf")
 
 [node name="Camera2D" type="Camera2D" parent="CamManager"]
-position = Vector2(65, 15)
-zoom = Vector2(3, 3)
+physics_interpolation_mode = 1
+position = Vector2(73, 47)
+zoom = Vector2(2.2, 2.2)
 
-[node name="PhantomCamera2D" type="Node2D" parent="CamManager/Camera2D"]
-script = ExtResource("7_hxulc")
-tween_resource = SubResource("Resource_pflc1")
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+[node name="PhantomCameraHost" type="Node" parent="CamManager/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_3bvpf")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="CamManager"]
+
+[node name="PhantomCamera2D" type="Node2D" parent="CamManager" node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(73, 47)
+script = ExtResource("7_hxulc")
+follow_mode = 1
+follow_target = NodePath("../../Player")
+zoom = Vector2(2.2, 2.2)
+tween_resource = SubResource("Resource_pflc1")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
