@@ -27,7 +27,7 @@ tile_set = ExtResource("3_hfjvg")
 
 [node name="Layout" type="TileMapLayer" parent="HospitalTileMap"]
 z_index = 1
-tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAMAAAAGAAMAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAgAGAAAAAAACAAMAAAAFAAAAAAADAAQAAAAGAAMAABA=")
+tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAgAGAAAAAAADAAQAAAAGAAMAABAFAAMAAAAFAAAAABA=")
 tile_set = ExtResource("3_hfjvg")
 
 [node name="MedicalPod" type="Node2D" parent="HospitalTileMap" groups=["medical_pod"]]
@@ -35,7 +35,7 @@ script = ExtResource("5_hfjvg")
 
 [node name="Medical Pod" type="TileMapLayer" parent="HospitalTileMap/MedicalPod"]
 z_index = 1
-tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAMAAAAGAAMAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAAAGAAAAAAACAAMAAAAFAAAAAAADAAQAAAAGAAMAABA=")
+tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAACAAIAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAMAAAAEAAIAAAAGAAEAAAAHAAMAAAAGAP//AAAFAAQAAAABAAUAAAAGAAUAAAAGAAUAAAAGAAUAAAAAAAUAAAAHAAUAAAAEAAIAAAAGAAAAAAADAAQAAAAGAAMAABA=")
 tile_set = ExtResource("3_hfjvg")
 
 [node name="Player" parent="." instance=ExtResource("1_6v8gn")]
@@ -62,7 +62,7 @@ script = ExtResource("6_3bvpf")
 [node name="Camera2D" type="Camera2D" parent="CamManager"]
 physics_interpolation_mode = 1
 position = Vector2(73, 47)
-zoom = Vector2(2.2, 2.2)
+zoom = Vector2(7, 7)
 
 [node name="PhantomCameraHost" type="Node" parent="CamManager/Camera2D"]
 process_priority = 300
@@ -78,6 +78,6 @@ position = Vector2(73, 47)
 script = ExtResource("7_hxulc")
 follow_mode = 1
 follow_target = NodePath("../../Player")
-zoom = Vector2(2.2, 2.2)
+zoom = Vector2(7, 7)
 tween_resource = SubResource("Resource_pflc1")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
