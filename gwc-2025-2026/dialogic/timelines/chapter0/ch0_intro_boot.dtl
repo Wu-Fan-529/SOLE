@@ -1,0 +1,15 @@
+# Dialogic Timeline – ch0_intro_boot
+# Used by: IntroBoot.gd (fallback if UITween sequence is bypassed)
+# Style: Use a custom monospace/terminal style with no speaker portrait.
+
+- text: "SOLE MEDICAL SYSTEM v9.3.1" [speed=0.5]
+- wait: 0.4
+- text: "Neural signature detected." [speed=0.5]
+- wait: 0.4
+- text: "Identity verification... FAILED" [speed=0.5]
+- wait: 0.6
+- text: "Fallback protocol engaged." [speed=0.5]
+- wait: 0.4
+- text: "Memory erasure sequence initializing..." [speed=0.3]
+- wait: 1.0
+- end_timeline

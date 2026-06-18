@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="PackedScene" uid="uid://o51uvaml2v1r" path="res://characters/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://cehayw7nuyd25" path="res://characters/pyx.tscn" id="2_pyx"]
+[ext_resource type="TileSet" uid="uid://cj3rq4w857tql" path="res://tile_sets/hospital_room_tls.tres" id="3_tileset"]
+[ext_resource type="Script" path="res://scripts/chapter0/MedicalRoom.gd" id="4_room"]
+[ext_resource type="Script" path="res://scripts/chapter0/Pickup.gd" id="5_pickup"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/wrench_placeholder.png" id="6_wrench"]
+[ext_resource type="Script" path="res://scripts/chapter0/InventoryPanel.gd" id="7_inv"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_host"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_pcam"]
+
+[sub_resource type="RectangleShape2D" id="wrench_shape"]
+size = Vector2(12, 12)
+
+[node name="MedicalRoom_2D" type="Node2D"]
+script = ExtResource("4_room")
+
+[node name="HospitalTileMap" type="Node2D" parent="."]
+
+[node name="Floor" type="TileMapLayer" parent="HospitalTileMap"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAQAAAABAAEAAAAAAAQAAAACAAIAAAAAAAQAAAAEAAEAAAAAAAQAAAAGAAIAAAAAAAQAAAAGAAAAAAAAAAQAAAAFAAQAAAAAAAQAAAABAAAAAAABAAQAAAADAAEAAAABAAQAAAAFAAAAAAABAAQAAAAGAAMAAAABAAQAAAAEAAQAAAABAAQAAAADAAQAAAABAAQAAAACAAEAAAACAAQAAAAEAAAAAAACAAQAAAAFAAMAAAACAAQAAAAAAAQAAAACAAQAAAABAAQAAAADAAQAAAADAAIAAAADAAQAAAACAAAAAAADAAQAAAAFAAEAAAADAAQAAAAGAAQAAAADAAQAAAACAAQAAAABAAUAAAAAAAMAAAABAAUAAAAAAAEAAAABAAUAAAADAAAAAAABAAUAAAAGAAEAAAABAAUAAAAFAAIAAAACAAQAAAAEAAIAAAAAAAUAAAAEAAMAAAAAAAUAAAADAAMAAAAAAAUAAAACAAMAAAABAAUAAAABAAMAAAADAAQAAAABAAIAAAACAAQAAAAAAAIAAAAAAAUAAAAHAAAAAAAAAAUAAAAHAAMAAAABAAUAAAAHAAIAAAACAAQAAAAHAAEAAAADAAQAAAAHAAQAAAABAAUAAAAAAAUAAAABAAUAAAABAAUAAAACAAQAAAAEAAUAAAACAAQAAAACAAUAAAABAAQAAAAHAAUAAAABAAQAAAAGAAUAAAADAAQAAAAFAAUAAAAAAAUAAAADAAUAAAADAAQAAAA=")
+tile_set = ExtResource("3_tileset")
+
+[node name="Wall" type="TileMapLayer" parent="HospitalTileMap"]
+tile_map_data = PackedByteArray("AAAAAP3/AAAAAAAAAAAAAP7/AAAAAAEAAAAAAP//AAAAAAIAAAADAP3/AAADAAAAAAADAP7/AAADAAEAAAADAP//AAADAAIAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAEAAAAFAP//AAAAAAIAAAABAP3/AAABAAAAAAABAP7/AAABAAEAAAABAP//AAABAAIAAAAGAP3/AAACAAAAAAAGAP7/AAACAAEAAAAGAP//AAACAAIAAAAEAP3/AAABAAAAAAAEAP7/AAABAAEAAAAEAP//AAABAAIAAAACAP3/AAACAAAAAAACAP7/AAACAAEAAAACAP//AAACAAIAAAAHAP3/AAADAAAAAAAHAP7/AAADAAEAAAAHAP//AAADAAIAAAD///3/AQAAAAMAAAAIAP3/AQADAAMAAAD//wYAAgACAAUAAAAIAAYAAgADAAUAAAD///7/AQABAAMAAAD/////AQABAAMAAAD//wAAAQABAAMAAAD//wEAAQABAAMAAAD//wIAAQABAAMAAAD//wMAAQABAAMAAAD//wQAAQABAAMAAAD//wUAAQABAAMAAAAAAAYAAgAEAAUAAAABAAYAAgAFAAUAAAACAAYAAgAEAAUAAAADAAYAAgAEAAUAAAAEAAYAAgAFAAUAAAAFAAYAAgAEAAUAAAAGAAYAAgAFAAUAAAAHAAYAAgAEAAUAAAAIAAAAAQACAAMAAAAIAAEAAQACAAMAAAAIAAIAAQACAAMAAAAIAAMAAQACAAMAAAAIAAQAAQACAAMAAAAIAAUAAQACAAMAAAAIAP7/AQACAAMAAAAIAP//AQACAAMAAAA=")
+tile_set = ExtResource("3_tileset")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(73, 47)
+collision_mask = 3
+
+[node name="Pyx" parent="." instance=ExtResource("2_pyx")]
+z_index = 1
+position = Vector2(106, 30)
+collision_mask = 6
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="Wrench" type="Area2D" parent="Pickups" groups=["pickup"]]
+position = Vector2(40, 60)
+script = ExtResource("5_pickup")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pickups/Wrench"]
+texture = ExtResource("6_wrench")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickups/Wrench"]
+shape = SubResource("wrench_shape")
+
+[node name="ExitTrigger" type="Area2D" parent="."]
+position = Vector2(120, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitTrigger"]
+shape = SubResource("wrench_shape")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InteractionPrompt" type="Label" parent="UI" groups=["interaction_prompt"]]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = -30.0
+text = "Press [E] to pick up"
+horizontal_alignment = 1
+visible = false
+
+[node name="InventoryPanel" type="Control" parent="UI"]
+script = ExtResource("7_inv")
+
+[node name="Label" type="Label" parent="UI/InventoryPanel"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 50.0
+text = "Inventory:"
+
+[node name="CamManager" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="CamManager"]
+position = Vector2(73, 47)
+zoom = Vector2(7, 7)
+
+[node name="PhantomCameraHost" type="Node" parent="CamManager/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_host")
+
+[node name="PhantomCamera2D" type="Node2D" parent="CamManager" node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(73, 47)
+script = ExtResource("9_pcam")
+follow_mode = 1
+follow_target = NodePath("../../Player")
+zoom = Vector2(7, 7)

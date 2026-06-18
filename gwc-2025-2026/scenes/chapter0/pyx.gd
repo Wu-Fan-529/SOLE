@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var max_speed := 120.0
 @export var accel := 70.0
-@export var stop_radius := 20.0  # ⭐ 靠近目标就别追了
+@export var stop_radius := 20.0 
 
 var player: CharacterBody2D
 var hover_offset := Vector2.ZERO
@@ -16,7 +16,6 @@ func _physics_process(delta):
 	if not player:
 		return
 
-	# --- 2️⃣ 计算稳定目标点 ---
 	var target := player.global_position
 
 	var to_target := target - global_position
@@ -31,5 +30,4 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(_delta):
-	# ⭐ 轻微、低频的悬停
 	hover_offset.y = sin(Time.get_ticks_msec()) * 100

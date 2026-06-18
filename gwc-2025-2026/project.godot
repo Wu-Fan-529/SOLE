@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GWC 2025-2026"
-run/main_scene="uid://dnfk50hho83rt"
+run/main_scene="res://scenes/chapter0/IntroBoot.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -23,14 +23,30 @@ IDV_VerificationManager="*res://scripts/verification_sys/verification_manager.gd
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
+directories/dch_directory={
+"Nurse_A": "res://dialogic/characters/Nurse_A.dch",
+"Nurse_B": "res://dialogic/characters/Nurse_B.dch",
+"Pyx": "res://dialogic/characters/Pyx.dch"
+}
+directories/dtl_directory={
+"ch0_intro_boot": "res://dialogic/timelines/chapter0/ch0_intro_boot.dtl",
+"ch0_nurse_a": "res://dialogic/timelines/chapter0/ch0_nurse_a.dtl",
+"ch0_nurse_b": "res://dialogic/timelines/chapter0/ch0_nurse_b.dtl",
+"ch0_pyx_intro": "res://dialogic/timelines/chapter0/ch0_pyx_intro.dtl",
+"ch0_verification_correct": "res://dialogic/timelines/chapter0/ch0_verification_correct.dtl",
+"ch0_verification_result_correct": "res://dialogic/timelines/chapter0/ch0_verification_result_correct.dtl",
+"ch0_verification_result_wrong": "res://dialogic/timelines/chapter0/ch0_verification_result_wrong.dtl",
+"ch0_verification_wrong": "res://dialogic/timelines/chapter0/ch0_verification_wrong.dtl"
+}
 layout/style_directory={}
+layout/style_list=[]
+layout/default_style="Default"
+variables={}
 
 [display]
 
-window/size/viewport_width=576
-window/size/viewport_height=324
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/scale_mode="integer"
 
 [dotnet]
@@ -79,6 +95,16 @@ walk_right={
 struggle={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":69,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+crouch={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":67,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 
