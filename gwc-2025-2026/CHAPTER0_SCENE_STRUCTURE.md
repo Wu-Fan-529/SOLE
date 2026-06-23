@@ -31,8 +31,8 @@ scripts/chapter0/
 | Scene | Root type | Input | Key systems touched |
 |---|---|---|---|
 | IntroBoot | Node2D | None | AnimationPlayer |
-| MedicalPod_FPV | Node3D | QTE only | StateMachine, StruggleState, CanvasLayer HUD |
-| MedicalRoom_2D | Node2D | Full movement | Player, Pyx, Pickup, Inventory |
+| MedicalPod_FPV | Node3D | QTE only | Struggle loop (self-contained in MedicalPodFPV.gd), Pyx glass-break rescue (Dialogic `ch0_pod_rescue`), CanvasLayer HUD |
+| MedicalRoom_2D | Node2D | Full movement | Player, Pyx (intro via Dialogic `ch0_pyx_intro`, then leads player to wrench), Pickup, Inventory |
 | HospitalCorridor | Node2D | Movement + Crouch | NurseNPC, VerificationManager, VerificationOverlay |
 
 ---
@@ -42,7 +42,7 @@ scripts/chapter0/
 ```
 IntroBoot
   → (animation_finished) → MedicalPod_FPV
-  → (pod_open anim) → MedicalRoom_2D
+  → (struggle complete → Pyx shatters glass + VO → ) → MedicalRoom_2D
   → (exit trigger) → HospitalCorridor
   → (verification complete) → RooftopReveal  ← Ch0 end / Ch1 start
 ```
@@ -56,8 +56,7 @@ to prevent input bleed between scenes.
 ## Integration Notes
 
 ### Reused from existing codebase (no changes needed)
-- `NodeState` / `NodeStateMachine` – state machine base classes
-- `StruggleState` – already handles struggle_ui group lookup
+- `NodeState` / `NodeStateMachine`, `StruggleState` on `player.tscn` – orphaned, never transitioned into; not used by MedicalPod_FPV (its struggle loop lives directly in `MedicalPodFPV.gd`)
 - `VerificationProfile` / `VerificationManager` – skeleton already exists
 - `GameInputEvent` – static input lock/unlock
 - `player.tscn` / `pyx.tscn` – instanced as-is in scenes 0-2 and 0-3

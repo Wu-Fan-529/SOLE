@@ -1,32 +1,32 @@
 extends Node2D
-## Scene 0-2: 2D gameplay begins. Movement, wrench pickup, Pyx intro, exit.
-## Pyx intro now plays through Dialogic ("ch0_pyx_intro").
+## Scene 0-2: 2D gameplay begins. Pyx intro, Pyx leads to the wrench, pickup, exit.
+## Pyx intro plays through Dialogic ("ch0_pyx_intro") as soon as the scene starts.
 
 const NEXT_SCENE := "res://scenes/chapter0/HospitalCorridor.tscn"
 
 @onready var pyx: CharacterBody2D = $Pyx
 @onready var inventory_panel: Control = $UI/InventoryPanel
 @onready var exit_trigger: Area2D = $ExitTrigger
+@onready var wrench: Area2D = $Pickups/Wrench
 
 var pyx_intro_done := false
 
 func _ready() -> void:
-	GameInputEvent.input_enabled = true
-	pyx.visible = false
+	GameInputEvent.input_enabled = false
 	exit_trigger.body_entered.connect(_on_exit_entered)
-
-func on_item_picked_up(item_id: String) -> void:
-	inventory_panel.add_item(item_id)
-	# Pyx appears and introduces herself after the wrench is collected.
-	if item_id == "wrench" and not pyx.visible:
-		pyx.visible = true
-		UITween.fade_in(pyx, 0.5)
-		GameInputEvent.input_enabled = false
-		Dialogic.start("ch0_pyx_intro")
-		Dialogic.timeline_ended.connect(_on_pyx_intro_done, CONNECT_ONE_SHOT)
+	UITween.fade_in(pyx, 0.5)
+	Dialogic.start("ch0_pyx_intro")
+	Dialogic.timeline_ended.connect(_on_pyx_intro_done, CONNECT_ONE_SHOT)
 
 func _on_pyx_intro_done() -> void:
 	GameInputEvent.input_enabled = true
+	# After "Follow me," Pyx walks ahead to the wrench; the player still has
+	# to walk up and press [E] to actually collect it (Pickup.gd).
+	if is_instance_valid(wrench):
+		pyx.lead_to(wrench.global_position)
+
+func on_item_picked_up(item_id: String) -> void:
+	inventory_panel.add_item(item_id)
 
 func _on_exit_entered(body: Node2D) -> void:
 	if pyx_intro_done or not body.is_in_group("player"):
